@@ -15,5 +15,7 @@ jenv = jinja2.Environment(
 template = jenv.get_template('rtr.j2')
 
 
+#print template.render(item = i)
 
-print template.render(item = i)
+with open(i['name'] + '.cfg', 'w') as out:
+    out.write(template.render(item = i))

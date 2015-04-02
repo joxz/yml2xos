@@ -20,11 +20,11 @@
         ip: 10.0.3.88/30
   ports:
       - number: "1:1"
-        descr: "uplink"
+        descr: "uplink_edge"
         grouping: "2:1"
         tags: ["voice", "glt", "ib-mgmt"]
       - number: "1:2"
-        descr: "uplink2"
+        descr: "uplink_edge"
         grouping: "2:2"
         tags: ["voice", "glt", "ib-mgmt", "clients_1410"]
   ul_ports:
