@@ -2,6 +2,7 @@ import yaml
 import jinja2
 import os
 
+
 with open('rtr.yml', 'r') as f:
     i = yaml.load(f)
 

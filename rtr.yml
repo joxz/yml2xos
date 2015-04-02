@@ -1,6 +1,7 @@
 ---
   name: rtr03
   location: "dert03"
+  mgmt_ip: "10.121.11.235"
   rtrid: "10.0.255.103"
   areaid: "0.0.0.103"
   vlans_tag:
