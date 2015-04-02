@@ -16,16 +16,20 @@ conf iproute add def {{item['defgw']}}
 !
 # ports
 {% for port in item['ul_ports'] %}
+ en sharing {{port.number}} grouping {{port.number}} {{port.sharing}}lacp
+ conf port descr {{port.descr}}
+{% endfor %}
+{% for port in item['ul_ports'] %}
  {% for tag in port['tags'] %}
  conf {{tag}} add port {{port.number}} tagged
 {% endfor %}
 {% endfor %}
-
 {% for id in range (1, item['stack']+1) %}
-conf lldp ports {{id}}:1-48 adv vend med cap
-conf lldp ports {{id}}:1-48 adv vend med policy app voice vlan voice dscp 46
-conf lldp ports {{id}}:1-48 adv vend med policy app voice-sig vlan voice dscp 40
-conf def del ports {{id}}:1-48
-conf {{item.vlan}} add ports {{id}}:1-48 un
-conf voice add ports {{id}}:1-48 tag
+ conf lldp ports {{id}}:1-48 adv vend med cap
+ conf lldp ports {{id}}:1-48 adv vend med policy app voice vlan voice dscp 46
+ conf lldp ports {{id}}:1-48 adv vend med policy app voice-sig vlan voice dscp 40
+ conf def del ports {{id}}:1-48
+ conf {{item.vlan}} add ports {{id}}:1-48 un
+ conf voice add ports {{id}}:1-48 tag
 {% endfor %}
+!
