@@ -1,0 +1,48 @@
+# snmp
+ conf snmp sysname {{ item['name'] }}
+ conf snmp sysloc {{ item['location'] }}
+!
+#vlan
+ create vlan rtrid
+ en loopback rtrid
+ conf rtrid ip {{item.rtrid}}
+{% for vlan in item['vlans_tag'] %}
+ create vlan {{vlan.name}} tag {{vlan.tag}}
+ conf {{vlan.name}} ip {{vlan.ip}}
+ en bootpr ipv4 vlan {{vlan.name}}
+{% endfor %}
+{% for vlan in item['vlans_untag'] %}
+ create vlan {{vlan.name}}
+ conf {{vlan.name}} ip {{vlan.ip}}
+ en bootpr ipv4 {{vlan.name}}
+{% endfor %}
+!
+# ports
+{% for port in item['ports'] %}
+ en sharing {{port.number}} grouping {{port.number}} {{port.sharing}}lacp
+ conf port descr {{port.descr}}
+{% endfor %}
+{% for port in item['ul_ports'] %}
+ conf default del ports {{port.number}}
+ conf {{port.vlan}} add port {{port.number}} untagged
+ en sharing {{port.number}} grouping {{port.number}} {{port.sharing}}lacp
+{% endfor %}
+{% for port in item['ports'] %}
+ {% for tag in port['tags'] %}
+ conf {{tag}} add port {{port.number}} tagged
+{% endfor %}
+{% endfor %}
+!
+# ospf
+ en ipforwarding
+ conf ospf routerid {{item.rtrid}}
+ create ospf area {{item.areaid}}
+  conf ospf area {{item.areaid}} normal
+{% for vlan in item['vlans_tag'] %}
+ conf ospf add vlan {{vlan.name}} area {{item.areaid}} passive
+{% endfor %}
+{% for vlan in item['vlans_untag'] %}
+ conf ospf add vlan {{vlan.name}} area 0.0.0.0
+{% endfor %}
+
+en ospf

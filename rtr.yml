@@ -1,0 +1,35 @@
+---
+  name: rtr03
+  location: "dert03"
+  rtrid: "10.0.255.103"
+  areaid: "0.0.0.103"
+  vlans_tag:
+      - name: voice
+        tag: 5
+        ip: "10.114.200.2/22"
+      - name: glt
+        tag: 6
+        ip: "10.6.3.1/24"
+  vlans_untag:
+      - name: "tn_r1"
+        ip: 10.0.2.88/30
+      - name: "tn_r2"
+        ip: 10.0.3.88/30
+  ports:
+      - number: "1:1"
+        descr: "uplink"
+        grouping: "2:1"
+        tags: ["voice", "glt", "ib-mgmt"]
+      - number: "1:2"
+        descr: "uplink2"
+        grouping: "2:2"
+        tags: ["voice", "glt", "ib-mgmt", "clients_1410"]
+  ul_ports:
+      - number: "1:25"
+        descr: "uplink_r1"
+        grouping: "2:25"
+        vlan: "tn_r1"
+      - number: "1:26"
+        descr: "uplink_r2"
+        grouping: "2:26"
+        vlan: "tn_r2"
