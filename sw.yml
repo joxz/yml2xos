@@ -1,0 +1,20 @@
+---
+  name: sw03
+  location: dert03
+  mgmt_ip: 10.121.11.234
+  stack: 3
+  vlan: clients_1410
+  vlans_tag:
+    - name: voice
+      tag: 5
+    - name: clients_1410
+      tag: 1410
+  vlans_l3:
+    - name: ib-mgmt
+      tag: 1401
+      ip: 10.114.1.11/24
+  ul_ports:
+    - number: '1:49'
+      descr: uplink_dist
+      grouping: '2:49'
+      tags: [voice, ib-mgmt, clients_1410]
