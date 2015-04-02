@@ -38,11 +38,14 @@
  conf ospf routerid {{item.rtrid}}
  create ospf area {{item.areaid}}
   conf ospf area {{item.areaid}} normal
+  {% for range in item['area_range'] %}
+  conf ospf area {{item.areaid}} add {{range}} adv type-3
+  {% endfor %}
 {% for vlan in item['vlans_tag'] %}
  conf ospf add vlan {{vlan.name}} area {{item.areaid}} passive
 {% endfor %}
 {% for vlan in item['vlans_untag'] %}
  conf ospf add vlan {{vlan.name}} area 0.0.0.0
 {% endfor %}
-
+ conf ospf add vlan rtrid {{item.areaid}} passive
 en ospf

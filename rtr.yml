@@ -10,6 +10,9 @@
       - name: glt
         tag: 6
         ip: "10.6.3.1/24"
+      - name: ib-mgmt
+        tag: 1401
+        ip: "10.114.1.1/24"
   vlans_untag:
       - name: "tn_r1"
         ip: 10.0.2.88/30
@@ -33,3 +36,4 @@
         descr: "uplink_r2"
         grouping: "2:26"
         vlan: "tn_r2"
+  area_range: ["10.114.0.0/16", "10.6.3.0/24"]
