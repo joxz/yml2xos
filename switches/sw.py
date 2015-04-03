@@ -17,5 +17,5 @@ template = jenv.get_template('sw.j2')
 
 print template.render(item = i)
 
-#with open(i['name'] + '.cfg', 'w') as out:
+#with open(i['name'] + '.xsf', 'w') as out:
 #    out.write(template.render(item = i))
