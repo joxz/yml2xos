@@ -16,11 +16,19 @@ child.sendline(pw)
 
 
 child.expect('#')
-child.sendline('tftp get 10.121.10.88 vr vr-m rtr03.cfg force')
+child.sendline('tftp get 10.121.10.88 vr vr-m rtr03.xsf force')
 
 child.expect('#')
-child.sendline('load script rtr03.cfg')
-child.expect(pexpect.EOF)
+child.sendline('load script rtr03.xsf')
 child.after
+child.expect('!!!--end--!!!')
+child.expect('#')
+child.after
+child.sendline('save configuration primary')
+child.after
+child.sendline('y')
+child.after
+child.expect(pexpect.EOF)
+
 
 child.close()
